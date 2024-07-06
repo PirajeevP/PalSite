@@ -1,7 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trigger Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Trigger Local Script</h1>
@@ -12,18 +32,32 @@
     </form>
     <script>
         document.getElementById('trigger-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            
             const token = document.getElementById('token').value;
-            fetch('https://b9d4-76-69-159-68.ngrok-free.app/trigger', {
+            const apiEndpoint = "https://b9d4-76-69-159-68.ngrok-free.app/trigger"; // Replace with your ngrok URL
+
+            fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
-                    'Authorization': token,
+                    'Authorization': `${token}`, // Adjust based on your API's authentication requirements
                     'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ action: 'start' }) // Replace with actual payload if needed
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
                 }
-            }).then(response => response.json()).then(data => {
-                alert(data.message);
-            }).catch(error => {
-                console.error('Error:', error);
+                return response.json(); // Parse the JSON from the response
+            })
+            .then(data => {
+                // Handle the response data
+                alert(data.message || 'Request successful'); // Adjust based on actual API response
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log error to the console
+                alert('There was an error with your request.');
             });
         });
     </script>
