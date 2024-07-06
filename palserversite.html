@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trigger Script</title>
+</head>
+<body>
+    <h1>Trigger Local Script</h1>
+    <form id="trigger-form">
+        <label for="token">Secret Tunnel:</label>
+        <input type="password" id="token" name="token" required>
+        <button type="submit">Trigger Script</button>
+    </form>
+    <script>
+        document.getElementById('trigger-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const token = document.getElementById('token').value;
+            fetch('https://4aa4-76-69-159-68.ngrok-free.app/trigger', {
+                method: 'POST',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then(data => {
+                alert(data.message);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
