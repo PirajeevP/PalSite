@@ -28,14 +28,24 @@
     <form id="trigger-form">
         <label for="token">Secret Tunnel:</label>
         <input type="password" id="token" name="token" required>
-        <button type="submit">Trigger Script</button>
+        <button type="button" id="script1">Trigger Script</button>
+        <button type="button" id="script2">Restart Script</button>
+
     </form>
     <script>
-        document.getElementById('trigger-form').addEventListener('submit', function(event) {
+            document.getElementById('script1').addEventListener('click', function(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
-            
+            triggerScript('script1');
+        });
+
+        document.getElementById('script2').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            triggerScript('script2');
+        });
+
+        function triggerScript(scriptName) {
             const token = document.getElementById('token').value;
-            const apiEndpoint = "https://a75e-76-69-159-68.ngrok-free.app/trigger"; // Replace with your ngrok URL
+            const apiEndpoint = 'https://b92f-76-69-159-68.ngrok-free.app/trigger'; // Replace with your ngrok URL
 
             fetch(apiEndpoint, {
                 method: 'POST',
@@ -43,7 +53,7 @@
                     'Authorization': `${token}`, // Adjust based on your API's authentication requirements
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ action: 'start' }) // Replace with actual payload if needed
+                body: JSON.stringify({ action: scriptName }) // Replace with actual payload if needed
             })
             .then(response => {
                 if (!response.ok) {
@@ -59,7 +69,7 @@
                 console.error('Error:', error); // Log error to the console
                 alert('There was an error with your request.');
             });
-        });
+        }
     </script>
 </body>
 </html>
