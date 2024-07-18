@@ -29,7 +29,7 @@
         <label for="token">Secret Tunnel:</label>
         <input type="password" id="token" name="token" required>
         <button type="button" id="script1">Trigger Script</button>
-        <button type="button" id="script2">Restart Script</button>
+
 
     </form>
     <script>
@@ -45,7 +45,7 @@
 
         function triggerScript(scriptName) {
             const token = document.getElementById('token').value;
-            const apiEndpoint = 'https://6d4d-76-69-159-68.ngrok-free.app/trigger'; // Replace with your ngrok URL
+            const apiEndpoint = 'https://213a-76-69-159-68.ngrok-free.app/trigger'; // Replace with your ngrok URL
 
             fetch(apiEndpoint, {
                 method: 'POST',
